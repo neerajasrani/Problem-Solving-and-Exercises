@@ -43,144 +43,177 @@ public class Retweet {
 
     private static final Object lock = new Object();
 
-    private static int numOfMin = 0;
+    private static long numOfMin;
+
+    private static boolean terminate = false;
 
 
     public static void main(String[] args) throws TwitterException {
 
-
-        numOfMin = Integer.parseInt(args[0]);
-        TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
-        AccessToken accessToken1 = new AccessToken(accessToken, accessTokenSecret);
-        StatusListener listener = new StatusStreamHandler() {
-            @Override
-            public void onDisconnectMessage(DisconnectMessage disconnectMessage) {
-
+            if (args.length > 0 && args[0].length() > 0) {
+                numOfMin = Integer.parseInt(args[0]);
             }
-
-            @Override
-            public void onStallWarningMessage(StallWarningMessage stallWarningMessage) {
-                //System.out.println("Got stall warning:" + stallWarningMessage);
+            else {
+                numOfMin = 1;
             }
+            TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
+            AccessToken accessToken1 = new AccessToken(accessToken, accessTokenSecret);
+            StatusListener listener = new StatusStreamHandler() {
+                @Override
+                public void onDisconnectMessage(DisconnectMessage disconnectMessage) {
+                    System.out.println(" Top 10 Retweets of highest frequency and their counts - \n\n");
 
-            @Override
-            public void onUnknownMessageType(String s) {
-
-            }
-
-            @Override
-            public void onStatus(Status status) {
-                //System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText() + " - " + status.getId());
-
-                Status retweetStatus = status.getRetweetedStatus();
-
-                if (retweetStatus != null) {
-
-                    // Tweet ID
-                    long id = retweetStatus.getId();
-
-                    // Tweet text
-                    String text = retweetStatus.getText();
-
-                    // Retweet Data if present in top 10 most frequently occurring retweets
-                    RetweetData retDt = topTenRetweets.get(id);
-
-                    // Get the tweet ID (MIN_ID) and lowest count (MIN) amongst the top 10
                     for (Map.Entry<Long, RetweetData> e : topTenRetweets.entrySet()) {
                         RetweetData rd = e.getValue();
                         BigInteger count = rd.getCount();
-                        if (0 > MIN.compareTo(rd.getCount())) {
-                            MIN_ID = e.getKey();
-                            MIN = rd.getCount();
-                        }
+                        String text = rd.getText();
+                        System.out.println("Text - " + text + "Count - " + count);
                     }
+                }
 
-                    // Check if Retweet Data is present for this tweet in the top 10.
-                    if (retDt != null) {
+                @Override
+                public void onStallWarningMessage(StallWarningMessage stallWarningMessage) {
+                    //System.out.println("Got stall warning:" + stallWarningMessage);
+                }
 
-                        // Increment count in both Hash Maps.
-                        topTenRetweets.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
-                        retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
+                @Override
+                public void onUnknownMessageType(String s) {
 
-                        // Update MIN and MIN_ID
-                        if (0 > MIN.compareTo(retDt.getCount())) {
-                            MIN_ID = id;
-                            MIN = retDt.getCount();
+                }
+
+                @Override
+                public void onStatus(Status status) {
+                    //System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText() + " - " + status.getId());
+
+                    Status retweetStatus = status.getRetweetedStatus();
+
+                    if (retweetStatus != null) {
+
+                        // Tweet ID
+                        long id = retweetStatus.getId();
+
+                        // Tweet text
+                        String text = retweetStatus.getText();
+
+                        // Retweet Data if present in top 10 most frequently occurring retweets
+                        RetweetData retDt = topTenRetweets.get(id);
+
+                        // Get the tweet ID (MIN_ID) and lowest count (MIN) amongst the top 10
+                        for (Map.Entry<Long, RetweetData> e : topTenRetweets.entrySet()) {
+                            RetweetData rd = e.getValue();
+                            BigInteger count = rd.getCount();
+                            if (0 > MIN.compareTo(rd.getCount())) {
+                                MIN_ID = e.getKey();
+                                MIN = rd.getCount();
+                            }
                         }
-                    }
-                    // Check in Store.
-                    else {
-                        retDt = retweetStore.get(id);
+
+                        // Check if Retweet Data is present for this tweet in the top 10.
                         if (retDt != null) {
+
+                            // Increment count in both Hash Maps.
+                            topTenRetweets.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
+                            retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
 
                             // Update MIN and MIN_ID
                             if (0 > MIN.compareTo(retDt.getCount())) {
-                                // Increment count in both Hash Maps.
-                                topTenRetweets.remove(MIN_ID);
-                                topTenRetweets.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
-                                retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
-
                                 MIN_ID = id;
                                 MIN = retDt.getCount();
-                            } else {
-                                retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
                             }
-                        } else {
-                            retweetStore.put(id, new RetweetData(text, BigInteger.ONE));
-                            topTenRetweets.put(id, new RetweetData(text, BigInteger.ONE));
+                        }
+                        // Check in Store.
+                        else {
+                            retDt = retweetStore.get(id);
+                            if (retDt != null) {
+
+                                // Update MIN and MIN_ID
+                                if (0 > MIN.compareTo(retDt.getCount())) {
+                                    // Increment count in both Hash Maps.
+                                    topTenRetweets.remove(MIN_ID);
+                                    topTenRetweets.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
+                                    retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
+
+                                    MIN_ID = id;
+                                    MIN = retDt.getCount();
+                                } else {
+                                    retweetStore.put(id, new RetweetData(text, retDt.getCount().add(BigInteger.ONE)));
+                                }
+                            } else {
+                                retweetStore.put(id, new RetweetData(text, BigInteger.ONE));
+                                if(topTenRetweets.size() < 10) {
+                                    topTenRetweets.put(id, new RetweetData(text, BigInteger.ONE));
+                                }
+                            }
                         }
                     }
+                    //System.out.println(status.getRetweetedStatus());
+
                 }
-                //System.out.println(status.getRetweetedStatus());
 
+                @Override
+                public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
+                    //System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+                }
+
+                @Override
+                public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
+                    //System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
+                }
+
+                @Override
+                public void onScrubGeo(long userId, long upToStatusId) {
+                    //System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+                }
+
+                @Override
+                public void onStallWarning(StallWarning warning) {
+                    //System.out.println("Got stall warning:" + warning);
+                }
+
+                @Override
+                public void onException(Exception ex) {
+                    ex.printStackTrace();
+                }
+            };
+            twitterStream.addListener(listener);
+            twitterStream.setOAuthConsumer(consumerKey, secretKey);
+            twitterStream.setOAuthAccessToken(accessToken1);
+            twitterStream.addConnectionLifeCycleListener(new ConnectionLifeCycleListener() {
+                @Override
+                public void onConnect() {
+
+                }
+
+                @Override
+                public void onDisconnect() {
+
+                }
+
+                @Override
+                public void onCleanUp() {
+                    System.out.println(" Top 10 Retweets of highest frequency and their counts - \n\n");
+
+                    for (Map.Entry<Long, RetweetData> e : topTenRetweets.entrySet()) {
+                        RetweetData rd = e.getValue();
+                        BigInteger count = rd.getCount();
+                        String text = rd.getText();
+                        System.out.println("Text - " + text + "Count - " + count);
+                    }
+
+                    System.out.print("DONE");
+                    System.exit(0);
+                }
+            });
+            twitterStream.sample();
+
+            try {
+                Thread.sleep(numOfMin * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-                //System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
-            }
-
-            @Override
-            public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-                //System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
-            }
-
-            @Override
-            public void onScrubGeo(long userId, long upToStatusId) {
-                //System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
-            }
-
-            @Override
-            public void onStallWarning(StallWarning warning) {
-                //System.out.println("Got stall warning:" + warning);
-            }
-
-            @Override
-            public void onException(Exception ex) {
-                ex.printStackTrace();
-            }
-        };
-        twitterStream.addListener(listener);
-        twitterStream.setOAuthConsumer(consumerKey, secretKey);
-        twitterStream.setOAuthAccessToken(accessToken1);
-        twitterStream.sample();
-
-        long start = System.currentTimeMillis();
-        long end = start + 1000;
-        while (System.currentTimeMillis() < end) {
             twitterStream.cleanUp();
             twitterStream.shutdown();
-        }
 
-        System.out.println(" Top 10 Retweets of highest frequency and their counts - \n\n");
-
-        for (Map.Entry<Long, RetweetData> e : topTenRetweets.entrySet()) {
-            RetweetData rd = e.getValue();
-            BigInteger count = rd.getCount();
-            String text = rd.getText();
-            System.out.println("Text - " + text + "Count - " + count);
-        }
-
-        System.exit(0);
     }
 }
