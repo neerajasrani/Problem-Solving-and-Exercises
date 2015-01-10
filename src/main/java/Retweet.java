@@ -41,11 +41,8 @@ public class Retweet {
     // Lowest in Top 10 Tweet Count
     private static BigInteger MIN = BigInteger.valueOf(Integer.MAX_VALUE);
 
-    private static final Object lock = new Object();
-
+    // Number of minutes for the Sample stream to run.
     private static long numOfMin;
-
-    private static boolean terminate = false;
 
 
     public static void main(String[] args) throws TwitterException {
@@ -61,19 +58,12 @@ public class Retweet {
             StatusListener listener = new StatusStreamHandler() {
                 @Override
                 public void onDisconnectMessage(DisconnectMessage disconnectMessage) {
-                    System.out.println(" Top 10 Retweets of highest frequency and their counts - \n\n");
 
-                    for (Map.Entry<Long, RetweetData> e : topTenRetweets.entrySet()) {
-                        RetweetData rd = e.getValue();
-                        BigInteger count = rd.getCount();
-                        String text = rd.getText();
-                        System.out.println("Text - " + text + "Count - " + count);
-                    }
                 }
 
                 @Override
                 public void onStallWarningMessage(StallWarningMessage stallWarningMessage) {
-                    //System.out.println("Got stall warning:" + stallWarningMessage);
+
                 }
 
                 @Override
@@ -83,7 +73,6 @@ public class Retweet {
 
                 @Override
                 public void onStatus(Status status) {
-                    //System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText() + " - " + status.getId());
 
                     Status retweetStatus = status.getRetweetedStatus();
 
@@ -121,7 +110,7 @@ public class Retweet {
                                 MIN = retDt.getCount();
                             }
                         }
-                        // Check in Store.
+                        // Check if Retweet Data is present in Store.
                         else {
                             retDt = retweetStore.get(id);
                             if (retDt != null) {
@@ -146,28 +135,26 @@ public class Retweet {
                             }
                         }
                     }
-                    //System.out.println(status.getRetweetedStatus());
-
                 }
 
                 @Override
                 public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
-                    //System.out.println("Got a status deletion notice id:" + statusDeletionNotice.getStatusId());
+
                 }
 
                 @Override
                 public void onTrackLimitationNotice(int numberOfLimitedStatuses) {
-                    //System.out.println("Got track limitation notice:" + numberOfLimitedStatuses);
+
                 }
 
                 @Override
                 public void onScrubGeo(long userId, long upToStatusId) {
-                    //System.out.println("Got scrub_geo event userId:" + userId + " upToStatusId:" + upToStatusId);
+
                 }
 
                 @Override
                 public void onStallWarning(StallWarning warning) {
-                    //System.out.println("Got stall warning:" + warning);
+
                 }
 
                 @Override
@@ -175,9 +162,11 @@ public class Retweet {
                     ex.printStackTrace();
                 }
             };
+
             twitterStream.addListener(listener);
             twitterStream.setOAuthConsumer(consumerKey, secretKey);
             twitterStream.setOAuthAccessToken(accessToken1);
+
             twitterStream.addConnectionLifeCycleListener(new ConnectionLifeCycleListener() {
                 @Override
                 public void onConnect() {
@@ -200,13 +189,17 @@ public class Retweet {
                         System.out.println("Text - " + text + "Count - " + count);
                     }
 
-                    System.out.print("DONE");
+                    System.out.print("\n ---- END OF PROGRAM ----");
                     System.exit(0);
                 }
             });
+
+            // Process the Sample/ Random tweets
             twitterStream.sample();
 
+            // Logic for running the program and stream for "n" minutes
             try {
+                // Put the Class thread to sleep for the number of minutes specified by user. Defaults to "1" minute.
                 Thread.sleep(numOfMin * 60 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
