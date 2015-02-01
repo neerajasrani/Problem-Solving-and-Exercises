@@ -21,6 +21,13 @@
             <version>2.2.0</version> <!-- or whatever the latest version is -->
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>
