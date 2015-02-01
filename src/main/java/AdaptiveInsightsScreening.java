@@ -63,6 +63,50 @@ public class AdaptiveInsightsScreening {
         return sum % 2 == 0;
     }
 
+    public static boolean doShit(int [] arr){
+        boolean result = false;
+
+        if (sum(arr)%2 == 0 && arr.length > 1){
+            for (int i = 0; i < arr.length - 1; i++){
+                int [] left = copyRange(arr, 0, i+1);
+                int [] right = copyRange(arr, i+1, arr.length);
+                printArray("left", left);
+                printArray("right", right);
+
+                if (sum(left)==sum(right)){
+                    result = true;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private static int sum(int [] arr){
+        int ans = 0;
+        for (int i = 0; i < arr.length; i++){
+            ans = ans + arr[i];
+        }
+        return ans;
+    }
+
+    private static int [] copyRange(int [] arr, int start, int end){
+        int [] subArr = new int[end-start];
+        for (int i = 0; i < subArr.length; i++){
+            subArr[i] = arr [start+i];
+        }
+        return subArr;
+    }
+
+    private static void printArray(String name, int [] arr){
+        System.out.print(name+" { ");
+        for (int i = 0; i < arr.length; i++){
+            System.out.print(arr[i] +" ");
+        }
+        System.out.println("}");
+    }
+
     public static String doubleCharacterInString (String s) {
 
         // If input is null or empty String, return the input String as is.
@@ -78,6 +122,7 @@ public class AdaptiveInsightsScreening {
             result[++index] = c;
             index++;
         }
+
         s = null;
         return new String(result);
     }
@@ -180,6 +225,11 @@ public class AdaptiveInsightsScreening {
         // Input of length 1
 
         // Input of length 2
+        int [] arr = {-5, 4, 10, -11, 50000, -50000, 9, -8, -1, };
+
+        boolean b = doShit(arr);
+        System.out.print(b);
+
 
     }
 }
