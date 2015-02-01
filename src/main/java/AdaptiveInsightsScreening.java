@@ -52,60 +52,30 @@ public class AdaptiveInsightsScreening {
             return false;
         }
 
-        int sum = 0;
+        int totalSum = 0;
+        int halfSum = 0;
 
         // Compute Sum
         for (int i : input) {
-            sum += i;
+            totalSum += i;
         }
 
-        // If sum is even return true otherwise false
-        return sum % 2 == 0;
-    }
+        // If odd sum then return false
+        if (totalSum % 2 != 0) {
+            return false;
+        }
 
-    public static boolean doShit(int [] arr){
-        boolean result = false;
-
-        if (sum(arr)%2 == 0 && arr.length > 1){
-            for (int i = 0; i < arr.length - 1; i++){
-                int [] left = copyRange(arr, 0, i+1);
-                int [] right = copyRange(arr, i+1, arr.length);
-                printArray("left", left);
-                printArray("right", right);
-
-                if (sum(left)==sum(right)){
-                    result = true;
-                    break;
-                }
+        // If even sum then return true if you can find half the total sum.
+        for (int i : input) {
+            if (halfSum == totalSum / 2) {
+                return true;
             }
+            halfSum += i;
         }
 
-        return result;
+        return false;
     }
 
-    private static int sum(int [] arr){
-        int ans = 0;
-        for (int i = 0; i < arr.length; i++){
-            ans = ans + arr[i];
-        }
-        return ans;
-    }
-
-    private static int [] copyRange(int [] arr, int start, int end){
-        int [] subArr = new int[end-start];
-        for (int i = 0; i < subArr.length; i++){
-            subArr[i] = arr [start+i];
-        }
-        return subArr;
-    }
-
-    private static void printArray(String name, int [] arr){
-        System.out.print(name+" { ");
-        for (int i = 0; i < arr.length; i++){
-            System.out.print(arr[i] +" ");
-        }
-        System.out.println("}");
-    }
 
     public static String doubleCharacterInString (String s) {
 
@@ -123,7 +93,6 @@ public class AdaptiveInsightsScreening {
             index++;
         }
 
-        s = null;
         return new String(result);
     }
 
@@ -225,9 +194,9 @@ public class AdaptiveInsightsScreening {
         // Input of length 1
 
         // Input of length 2
-        int [] arr = {-5, 4, 10, -11, 50000, -50000, 9, -8, -1, };
+        int [] arr = {-1, -5, 4, 10, -11, 50000, -50000, 9, -8, -1, 1};
 
-        boolean b = doShit(arr);
+        boolean b = splitArrEqualSum(arr);
         System.out.print(b);
 
 
