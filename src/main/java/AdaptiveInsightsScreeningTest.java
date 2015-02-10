@@ -97,7 +97,7 @@ public class AdaptiveInsightsScreeningTest {
         Assert.assertEquals(AdaptiveInsightsScreening.doubleCharacterInString(null), null);
 
         // If String is empty, return empty
-        Assert.assertEquals(AdaptiveInsightsScreening.doubleCharacterInString(""), "");
+        Assert.assertEquals(AdaptiveInsightsScreening.doubleCharacterInString(""), null);
 
         // String of alphabets
         Assert.assertEquals(AdaptiveInsightsScreening.doubleCharacterInString("abc"), "aabbcc");
@@ -163,6 +163,10 @@ public class AdaptiveInsightsScreeningTest {
         arr = new int[]{0, 0, 0, 0, 0, 0};
         Assert.assertTrue(AdaptiveInsightsScreening.splitArrEqualSum(arr));
 
+        // Corner case - Input of all zero's of length 2, splittable
+        arr = new int[]{0, 0};
+        Assert.assertTrue(AdaptiveInsightsScreening.splitArrEqualSum(arr));
+
         // Input of length 2, leftTotal and rightTotal is same at "-3", splittable
         arr = new int[]{-1, -5, 4, 10, -11, 49998, -50000, 9, -8, -1, 1, -2, 2};
         Assert.assertTrue(AdaptiveInsightsScreening.splitArrEqualSum(arr));
@@ -224,7 +228,7 @@ public class AdaptiveInsightsScreeningTest {
         Assert.assertSame(AdaptiveInsightsScreening.insertAsterixBetweenChars(null), null);
 
         // Empty String, return empty String
-        Assert.assertTrue(AdaptiveInsightsScreening.insertAsterixBetweenChars("").equals(""));
+        Assert.assertSame(AdaptiveInsightsScreening.insertAsterixBetweenChars(""), null);
 
         // Input String of length 1, alphabet
         Assert.assertTrue(AdaptiveInsightsScreening.insertAsterixBetweenChars("a").equals("a*"));

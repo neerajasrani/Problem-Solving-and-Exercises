@@ -62,13 +62,13 @@ public class AdaptiveInsightsScreening {
      * For example, given the string "xyz", return the string "xxyyzz".
      *
      * @param input   Input String to be doubled
-     * @return result Doubled output String
+     * @return result Doubled output String or null
      */
     public static String doubleCharacterInString(String input) {
 
-        // Return the input String if input is either null or empty
+        // Return null String if input is either null or empty
         if (input == null || input.equals("")) {
-            return input;
+            return null;
         }
 
         char[] result = new char[input.length() * 2];
@@ -95,7 +95,6 @@ public class AdaptiveInsightsScreening {
      */
     public static boolean splitArrEqualSum(int[] arr) {
         boolean result = false;
-        boolean areAllZero = false;
 
         // Total
         int total = sum(arr);
@@ -105,7 +104,6 @@ public class AdaptiveInsightsScreening {
         if (total % 2 == 0 && arr.length > 1) {
             int leftTotal = 0;
             int rightTotal;
-            areAllZero = true;
 
             // Loop
             for (int i = 0; i < arr.length - 1; i++) {
@@ -121,16 +119,11 @@ public class AdaptiveInsightsScreening {
                     result = true;
                     break;
                 }
-
-                // Return true when all elements have zero value
-                if (arr[i] != 0) {
-                    areAllZero = false;
-                }
             }
             // End Loop
         }
 
-        return result || areAllZero;
+        return result;
     }
 
 
@@ -160,11 +153,11 @@ public class AdaptiveInsightsScreening {
      * numbers on one side of the split equals the sum of the numbers on the other side.
      *
      * @param input   Input String to be asterixed
-     * @return String Asterixed output String
+     * @return String Asterixed output String or null
      */
     public static String insertAsterixBetweenChars(String input) {
         if (input == null || input.equals("")) {
-            return input;
+            return null;
         }
 
         // Return call to recursive insert.
