@@ -1,5 +1,8 @@
 import com.sun.xml.internal.bind.v2.TODO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by neeraj on 1/12/15.
  */
@@ -106,6 +109,8 @@ public class BinaryTree {
 
         root.left = lChild;
         root.right= rChild;
+
+        StringBuilder s;
     }
 
     /**
@@ -496,6 +501,7 @@ public class BinaryTree {
             return(true);
         }
         else {
+
             // left should be in range  min...node.data
             boolean leftOk = isBST2(node.left, min, node.data);
 
