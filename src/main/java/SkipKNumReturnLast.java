@@ -1,13 +1,13 @@
 /**
  * Created by neeraj on 2/23/15.
  */
-public class ParseArray {
+public class SkipKNumReturnLast {
 
     private int lastIndex;
     private Integer[] input;
 
     public static void main(String [] args) {
-        ParseArray parseArray = new ParseArray();
+        SkipKNumReturnLast parseArray = new SkipKNumReturnLast();
         System.out.print(parseArray.returnLastElement(5) + "\n");
     }
 

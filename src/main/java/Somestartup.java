@@ -64,7 +64,6 @@ public class Somestartup {
 
         while (li <= ri) {
 
-
             if (input[li] + input[ri] == sum) {
                 return new int[] {input[li], input[ri]};
             }
