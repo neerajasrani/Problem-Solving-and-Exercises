@@ -44,7 +44,6 @@ public class Facebook {
                 size = r[0];
                 index = r[1];
                 pre = Math.min(pre, size);
-                h.clear();
             }
         }
         return input.substring(index, index + pre);
@@ -85,5 +84,7 @@ public class Facebook {
         System.out.print(minSubstring("aaccbb", "abc") + "\n");
         System.out.print(minSubstring("aacdacb", "abc")+ "\n");
         System.out.print(minSubstring("aacdab", "abc")+ "\n");
+        System.out.print(minSubstring("aabbca", "abc")+ "\n");
+
     }
 }
