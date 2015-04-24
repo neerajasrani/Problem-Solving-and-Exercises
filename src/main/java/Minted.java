@@ -30,8 +30,8 @@ public class Minted {
 
 
         int [] result;
-        //result = mergeArray(A, B, A.length);
-        result = mergeArrayBetter(C, D, C.length);
+        result = mergeArray(A, B, A.length);
+        //result = mergeArrayBetter(C, D, C.length);
 
 
         for (int i : result) {
