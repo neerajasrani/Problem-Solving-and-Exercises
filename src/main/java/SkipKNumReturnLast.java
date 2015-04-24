@@ -1,5 +1,7 @@
 /**
  * Created by neeraj on 2/23/15.
+ *
+ * Delete kth element in array of length n and return the last number
  */
 public class SkipKNumReturnLast {
 
