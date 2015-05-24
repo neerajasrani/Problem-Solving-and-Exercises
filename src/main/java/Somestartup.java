@@ -31,6 +31,35 @@ public class Somestartup {
 
     }
 
+    public static String reverseSentenceImproved(String input) {
+
+        if (input == null) {
+            return null;
+        }
+
+        if (input.length() == 1) {
+            return input;
+        }
+
+        int li = 0;
+        int ri = Integer.MAX_VALUE;
+
+        while (li <= ri) {
+
+        }
+
+        String[] words = input.split(" ");
+
+        StringBuilder result = new StringBuilder();
+
+        for (int i=words.length - 1 ; i >=0; i--) {
+            result.append(words[i] + " ");
+        }
+
+        return result.substring(0, result.length() - 1);
+
+    }
+
     public static void main(String[] args) {
         System.out.println(reverseSentence("Neeraj   is    my    name"));
         int[] result = findTwoNumbersThatSum(new int[]{10,20,-30, -70, -100, 7000, 10}, 6970);
@@ -77,9 +106,6 @@ public class Somestartup {
         }
 
         return new int[]{};
-
-
-
 
     }
 
