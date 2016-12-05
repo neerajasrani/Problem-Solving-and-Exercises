@@ -18,7 +18,8 @@ public class StringDupRemovalLexicoKeeper {
 
     public static void main(String[] args) throws Exception {
         // input string
-        String in = "omdzozd";
+        String in = "lmznopnbdfikmonqsvnlmznop"; //      bdfikmnqsvlzop
+//        String in = "omdzozd";
 //        String in = "o";
 //        String in = "oo";
 //        String in = "mmm";
@@ -57,7 +58,7 @@ public class StringDupRemovalLexicoKeeper {
         // end algo
 
         for (StringPosition sp : customArrayList) {
-            System.out.print(sp);
+            System.out.println(sp);
         }
 
     }
@@ -115,7 +116,7 @@ class CustomArrayList extends ArrayList<StringPosition> {
                 }
                 // insert incoming character before current arraylist element
                 else
-                    add(i - 1, new StringPosition(c, in));
+                    add(i, new StringPosition(c, in));
                 result = true;
                 break;
             }
@@ -162,7 +163,7 @@ class StringPosition {
 
     @Override
     public String toString() {
-        return Character.toString(this.getAlpha());
+        return Character.toString(this.getAlpha())  + " - " + this.getPos();
     }
 
 }

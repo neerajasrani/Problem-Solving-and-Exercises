@@ -14,4 +14,9 @@ public class Somework {
 //    I can't solve this problem well and the interviewer said that you can scan the string twice. First scan is do some preprocess, and the second is to get the answer, but I really can't come up this idea.
 
 
+    public static void main(String[] args) {
+
+    }
+
+
 }
