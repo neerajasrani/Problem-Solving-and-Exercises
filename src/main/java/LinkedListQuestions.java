@@ -1,4 +1,3 @@
-
 /**
  * Created by nickamac on 12/27/16.
  */
@@ -40,14 +39,14 @@ class LinkedList {
     /**
      * Reverse Linked List : Iterative approach
      */
-    void ReverseIterLL (){
+    void ReverseIterLL() {
 
     }
 
     /**
      * Reverse Linked List : Recursive approach
      */
-    void ReverseRecurLL (){
+    void ReverseRecurLL() {
 
     }
 
@@ -56,93 +55,93 @@ class LinkedList {
      * Find middle Node in the Linked List
      */
     String findMiddleNode() {
-        if (head==null) {
+        if (head == null) {
             return null;
         }
-        if (head.next==null) { // if head==tail
+        if (head.next == null) { // if head==tail
             return head.value;
         }
-        Node fast_ptr=head;
-        Node slow_ptr=head;
-        while (fast_ptr.next!=null || fast_ptr.next.next!=null) {
-            fast_ptr=fast_ptr.next.next;
-            slow_ptr=slow_ptr.next;
+        Node fast_ptr = head;
+        Node slow_ptr = head;
+        while (fast_ptr.next != null || fast_ptr.next.next != null) {
+            fast_ptr = fast_ptr.next.next;
+            slow_ptr = slow_ptr.next;
         }
         return slow_ptr.value;
     }
 
     /**
      * Find nth node from index
+     *
      * @param index
      */
 
     String findNthNodeFromEnd(int index) {
-        if (head==null) {
+        if (head == null) {
             return null;
         }
-        int hops_until_null=0;
-        Node index_th_ptr=head;
-        Node prev_index_th_ptr=head;
-        Node current_ptr=head;
-        while (current_ptr!=null) {
-            while (current_ptr==null || hops_until_null<=index) {
+        int hops_until_null = 0;
+        Node index_th_ptr = head;
+        Node prev_index_th_ptr = head;
+        Node current_ptr = head;
+        while (current_ptr != null) {
+            while (current_ptr == null || hops_until_null <= index) {
                 current_ptr = current_ptr.next;
                 hops_until_null++;
             }
-            if (hops_until_null==index) {
-                prev_index_th_ptr=index_th_ptr;
-                index_th_ptr=current_ptr;
-                hops_until_null=0;
-            }
-            else {
+            if (hops_until_null == index) {
+                prev_index_th_ptr = index_th_ptr;
+                index_th_ptr = current_ptr;
+                hops_until_null = 0;
+            } else {
                 break;
             }
         }
-        if (prev_index_th_ptr==head && index_th_ptr==head) { // edge case if n > size of Linked List
+        if (prev_index_th_ptr == head && index_th_ptr == head) { // edge case if n > size of Linked List
             return null;
         }
-        current_ptr=prev_index_th_ptr;
-        for (int i=0; i <=hops_until_null; i++) {
-            current_ptr=current_ptr.next;
+        current_ptr = prev_index_th_ptr;
+        for (int i = 0; i <= hops_until_null; i++) {
+            current_ptr = current_ptr.next;
         }
         return current_ptr.value;
     }
+
     /**
-     Method to delete node at a index position.
-     Add a method to delete first node in the linkedList
-     Add a method to delete last node in the LinkedList
-     Add a method to delete node at index
+     * Method to delete node at a index position.
+     * Add a method to delete first node in the linkedList
+     * Add a method to delete last node in the LinkedList
+     * Add a method to delete node at index
      */
     void deleteNodeAt(int index) { // assuming 0 "zero" based subsequence of index
-        if (head==null) {
+        if (head == null) {
             return;
         }
         Node fast_ptr = head;
-        Node prev_fast_ptr=head;
-        Node prev_prev_fast_ptr=head;
-        Node slow_ptr=head;
-        int c=0;
-        while(fast_ptr.next!=null || fast_ptr.next.next!=null || c >= index) {
-            fast_ptr=fast_ptr.next.next;
-            prev_fast_ptr=fast_ptr.next;
-            prev_prev_fast_ptr=fast_ptr;
-            c+=2;
+        Node prev_fast_ptr = head;
+        Node prev_prev_fast_ptr = head;
+        Node slow_ptr = head;
+        int c = 0;
+        while (fast_ptr.next != null || fast_ptr.next.next != null || c >= index) {
+            fast_ptr = fast_ptr.next.next;
+            prev_fast_ptr = fast_ptr.next;
+            prev_prev_fast_ptr = fast_ptr;
+            c += 2;
         }
-        if(c==index) {
+        if (c == index) {
             if (head == tail) { // edge case if there is only one element in the list and we delete it
                 head = tail = null;
             }
 
-            if (fast_ptr==tail) { // edge case when fast_ptr is the last element
+            if (fast_ptr == tail) { // edge case when fast_ptr is the last element
                 prev_fast_ptr.next = null;
                 tail = prev_fast_ptr;
             }
-            prev_fast_ptr.next=null;
-            fast_ptr=null; // For GC
-        }
-        else { // c > index
-            prev_prev_fast_ptr.next=fast_ptr;
-            prev_fast_ptr=null;
+            prev_fast_ptr.next = null;
+            fast_ptr = null; // For GC
+        } else { // c > index
+            prev_prev_fast_ptr.next = fast_ptr;
+            prev_fast_ptr = null;
         }
 
     }
@@ -236,6 +235,7 @@ public class LinkedListQuestions {
 class Node {
     Node next;
     String value;
+
     Node(Node next, String value) {
         this.next = next;
         this.value = value;
