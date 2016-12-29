@@ -137,7 +137,7 @@ class StringPosition {
 
     StringPosition(char alpha, Integer in) {
         this.alpha = alpha;
-        this.pos = new ArrayList<>(5);
+        this.pos = new ArrayList<Integer>(5);
         this.pos.add(in);
     }
 
