@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Created by neeraj on 11/14/16.
+ * Link to question and answers - https://www.careercup.com/question?id=5758790009880576
  * Given a string which only contains lowercase. You need delete the repeated letters only leave one, and try to make the lexicographical order of new string is smallest.
  * i.e:
  * bcabc
@@ -18,12 +19,13 @@ public class StringDupRemovalLexicoKeeper {
 
     public static void main(String[] args) throws Exception {
         // input string
-        String in = "lmznopnbdfikmonqsvnlmznop"; //      bdfikmnqsvlzop
-//        String in = "omdzozd";
+//        String in = "lmznopnbdfikmonqsvnlmznop"; //      bdfikmnqsvlzop
+//        String in = "omdzozcbacdcbcd";
 //        String in = "o";
 //        String in = "oo";
 //        String in = "mmm";
 //        String in = "omdzozd";
+        String in = "cbacdcbc";
 
         // ds used for this problem
         customArrayList = new CustomArrayList();
