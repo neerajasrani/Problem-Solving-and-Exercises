@@ -37,6 +37,15 @@ public class StringInterviewQuestions {
         System.out.println(StrUtils.reverseWords(null));
         System.out.println(StrUtils.reverseWords("a"));
         System.out.println(StrUtils.reverseWords("                        "));
+
+        System.out.println(StrUtils.isPalindrome(""));
+        System.out.println(StrUtils.isPalindrome("a"));
+        System.out.println(StrUtils.isPalindrome("ab"));
+        System.out.println(StrUtils.isPalindrome("aba"));
+        System.out.println(StrUtils.isPalindrome("abab"));
+        System.out.println(StrUtils.isPalindrome("ababc"));
+        System.out.println(StrUtils.isPalindrome("abba"));
+
     }
 }
 
@@ -165,9 +174,26 @@ class StrUtils extends StringInterviewQuestions {
      *
      * @param str Input String
      * @return true if Palindrome, False otherwise
+     *
+     * // Diego, 313.
+     * 91,2261273891 (claims department from oriental)
+     * 135772, Poonam
+     *
      */
     static boolean isPalindrome(String str) {
-        return false;
+        if (str==null) {
+            return false;
+        }
+        int lptr=0;
+        int rptr=str.length()-1;
+        while (lptr<=rptr) {
+            if (str.charAt(lptr) != str.charAt(rptr)) {
+                return false;
+            }
+            lptr++;
+            rptr--;
+        }
+        return true;
     }
 
     /**
