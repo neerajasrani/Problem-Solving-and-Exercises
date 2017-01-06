@@ -46,6 +46,18 @@ public class StringInterviewQuestions {
         System.out.println(StrUtils.isPalindrome("ababc"));
         System.out.println(StrUtils.isPalindrome("abba"));
 
+        System.out.println(StrUtils.findSubstring("d", "bacd"));
+        System.out.println(StrUtils.findSubstring("a", "bacd"));
+        System.out.println(StrUtils.findSubstring("e", "bacd"));
+        System.out.println(StrUtils.findSubstring(" ", "bacd"));
+        System.out.println(StrUtils.findSubstring("bacd", "bacd"));
+        System.out.println(StrUtils.findSubstring("acd", "bacd"));
+        System.out.println(StrUtils.findSubstring("acb", "bacd"));
+        System.out.println(StrUtils.findSubstring("bacde", "bacdbacde"));
+        System.out.println(StrUtils.findSubstring("bacde", "bacbabacdefghbacde"));
+        System.out.println(StrUtils.findSubstring("d", "d"));
+        System.out.println(StrUtils.findSubstring("", ""));
+
     }
 }
 
@@ -207,7 +219,48 @@ class StrUtils extends StringInterviewQuestions {
      * @return int -1 if not found, otherwise start index of substring
      */
     static int findSubstring(String target, String body) {
-        return 0;
+
+        // start with a pointer looking for first character
+        // keep track of index starting from first let from "target" in body"
+        // complexity - O(b*t)
+        if (body==null || target==null) {
+            return -1;
+        }
+        int ptr=0;
+        int next_ptr=-1;                int new_ptr = ptr;
+        int target_ptr=0;
+        boolean is_substr_found = true;
+        boolean next_ptr_recorded= false;
+        while (ptr<=body.length()-1) {
+            if (body.length() - ptr < target.length()) { //optimization
+                return -1;
+            }
+            if(body.charAt(ptr) == target.charAt(0)){
+                new_ptr = ptr;
+                target_ptr=0;
+                is_substr_found = true;
+                next_ptr_recorded= false; //needed to record ONLY first occurrence of target string in body
+                while(target_ptr<=target.length()-1) {
+                    if (body.charAt(new_ptr) != target.charAt(target_ptr)) {
+                        is_substr_found=false;
+                        break;
+                    }
+                    else {
+                        if (body.charAt(new_ptr) == target.charAt(0) && !next_ptr_recorded) {
+                            next_ptr = new_ptr;
+                            next_ptr_recorded=true;
+                        }
+                        new_ptr++;
+                        target_ptr++;
+                    }
+                }
+                if (is_substr_found) {
+                    return ptr;
+                }
+            }
+            ptr=next_ptr_recorded && body.length()-next_ptr < target.length()?next_ptr:ptr+1; //optimization
+        }
+        return -1;
     }
 
     /**
