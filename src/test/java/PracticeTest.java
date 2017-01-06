@@ -1,7 +1,6 @@
 /**
  * Created by nickamac on 1/3/17.
  */
-import com.sun.tools.javac.util.Assert;
 import org.junit.*;
 
 import org.junit.Test;
