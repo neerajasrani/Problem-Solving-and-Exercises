@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,50 +16,54 @@ public class StringInterviewQuestions {
 
     public static void main(String[] args) {
 
-        System.out.println(StrUtils.reverse("abc"));
-        System.out.println(StrUtils.reverse(""));
-        System.out.println(StrUtils.reverse(null));
-        System.out.println(StrUtils.reverse("ab"));
-        System.out.println(StrUtils.reverse("dregfkl mn"));
-        System.out.println(StrUtils.reverse("a"));
+//        System.out.println(StrUtils.reverse("abc"));
+//        System.out.println(StrUtils.reverse(""));
+//        System.out.println(StrUtils.reverse(null));
+//        System.out.println(StrUtils.reverse("ab"));
+//        System.out.println(StrUtils.reverse("dregfkl mn"));
+//        System.out.println(StrUtils.reverse("a"));
+//
+//        System.out.println(StrUtils.reverse("dregfkl mn",0,3));
+//        System.out.println(StrUtils.reverse("abc",1,2));
+//
+//        System.out.println(StrUtils.reverse("dog cat",3,5)); // -> “dog tac” --> should be "dogac t"
+//        System.out.println(StrUtils.reverse("abc",0,2)); // -> “cba”
+//        System.out.println(StrUtils.reverse("abc",2,-2)); // -> “abc”
+//        System.out.println(StrUtils.reverse("",0,0)); // -> “”
+//        System.out.println(StrUtils.reverse(null,-3,0)); // -> null
+//        System.out.println(StrUtils.reverse("abcde",-10,30)); // -> “edcba”
+//
+//        System.out.println(StrUtils.reverseWords("the quick      brown      fox jumped  over the lazy dog"));
+//        System.out.println(StrUtils.reverseWords("abc"));
+//        System.out.println(StrUtils.reverseWords("abc def ghi jkl"));
+//        System.out.println(StrUtils.reverseWords(null));
+//        System.out.println(StrUtils.reverseWords("a"));
+//        System.out.println(StrUtils.reverseWords("                        "));
+//
+//        System.out.println(StrUtils.isPalindrome(""));
+//        System.out.println(StrUtils.isPalindrome("a"));
+//        System.out.println(StrUtils.isPalindrome("ab"));
+//        System.out.println(StrUtils.isPalindrome("aba"));
+//        System.out.println(StrUtils.isPalindrome("abab"));
+//        System.out.println(StrUtils.isPalindrome("ababc"));
+//        System.out.println(StrUtils.isPalindrome("abba"));
+//
+//        System.out.println(StrUtils.findSubstring("d", "bacd"));
+//        System.out.println(StrUtils.findSubstring("a", "bacd"));
+//        System.out.println(StrUtils.findSubstring("e", "bacd"));
+//        System.out.println(StrUtils.findSubstring(" ", "bacd"));
+//        System.out.println(StrUtils.findSubstring("bacd", "bacd"));
+//        System.out.println(StrUtils.findSubstring("acd", "bacd"));
+//        System.out.println(StrUtils.findSubstring("acb", "bacd"));
+//        System.out.println(StrUtils.findSubstring("bacde", "bacdbacde"));
+//        System.out.println(StrUtils.findSubstring("bacde", "bacbabacdefghbacde"));
+//        System.out.println(StrUtils.findSubstring("d", "d"));
+//        System.out.println(StrUtils.findSubstring("", ""));
+//
+//        System.out.println(StrUtils.findSmallestSubstring("abyzhxdexzyr", "yzx"));
+//        System.out.println(StrUtils.findSmallestSubstring("abyzyxdexzr", "yzx"));
 
-        System.out.println(StrUtils.reverse("dregfkl mn",0,3));
-        System.out.println(StrUtils.reverse("abc",1,2));
-
-        System.out.println(StrUtils.reverse("dog cat",3,5)); // -> “dog tac” --> should be "dogac t"
-        System.out.println(StrUtils.reverse("abc",0,2)); // -> “cba”
-        System.out.println(StrUtils.reverse("abc",2,-2)); // -> “abc”
-        System.out.println(StrUtils.reverse("",0,0)); // -> “”
-        System.out.println(StrUtils.reverse(null,-3,0)); // -> null
-        System.out.println(StrUtils.reverse("abcde",-10,30)); // -> “edcba”
-
-        System.out.println(StrUtils.reverseWords("the quick      brown      fox jumped  over the lazy dog"));
-        System.out.println(StrUtils.reverseWords("abc"));
-        System.out.println(StrUtils.reverseWords("abc def ghi jkl"));
-        System.out.println(StrUtils.reverseWords(null));
-        System.out.println(StrUtils.reverseWords("a"));
-        System.out.println(StrUtils.reverseWords("                        "));
-
-        System.out.println(StrUtils.isPalindrome(""));
-        System.out.println(StrUtils.isPalindrome("a"));
-        System.out.println(StrUtils.isPalindrome("ab"));
-        System.out.println(StrUtils.isPalindrome("aba"));
-        System.out.println(StrUtils.isPalindrome("abab"));
-        System.out.println(StrUtils.isPalindrome("ababc"));
-        System.out.println(StrUtils.isPalindrome("abba"));
-
-        System.out.println(StrUtils.findSubstring("d", "bacd"));
-        System.out.println(StrUtils.findSubstring("a", "bacd"));
-        System.out.println(StrUtils.findSubstring("e", "bacd"));
-        System.out.println(StrUtils.findSubstring(" ", "bacd"));
-        System.out.println(StrUtils.findSubstring("bacd", "bacd"));
-        System.out.println(StrUtils.findSubstring("acd", "bacd"));
-        System.out.println(StrUtils.findSubstring("acb", "bacd"));
-        System.out.println(StrUtils.findSubstring("bacde", "bacdbacde"));
-        System.out.println(StrUtils.findSubstring("bacde", "bacbabacdefghbacde"));
-        System.out.println(StrUtils.findSubstring("d", "d"));
-        System.out.println(StrUtils.findSubstring("", ""));
-
+        System.out.println(StrUtils.findMinStep("WWRRBBWW", "YRBGB"));
     }
 }
 
@@ -136,7 +142,7 @@ class StrUtils extends StringInterviewQuestions {
         return new String(str_char_arr);
     }
 
-    static String reverse(String str, int startIndex, int endIndex) {
+    private static String reverse(String str, int startIndex, int endIndex) {
         if (str==null) {
             return null;
         }
@@ -261,6 +267,159 @@ class StrUtils extends StringInterviewQuestions {
             ptr=next_ptr_recorded && body.length()-next_ptr < target.length()?next_ptr:ptr+1; //optimization
         }
         return -1;
+    }
+
+    static String findSmallestSubstring(String str, String arr) {
+        int t = 0;
+        String result = null;
+        int uniqueCounter = 0;
+        Map<Character,Integer> countMap = new HashMap<>();
+        // initialize countMap:
+        for (int i=0; i <arr.length(); i++)
+            countMap.put(arr.charAt(i), 0);
+            // scan str
+            for (int h=0;h<str.length(); h++) {
+            // handle the new head
+            char head = str.charAt(h);
+            if (!countMap.containsKey(head))
+                continue;
+            int headCount = countMap.get(head);
+            if (headCount == 0) {
+                uniqueCounter = uniqueCounter + 1;
+            }
+            countMap.put(head, headCount + 1);
+            //push tail forward
+            while (uniqueCounter == arr.length()) {
+                int tempLength = h - t + 1;
+                if (tempLength == arr.length()) {
+                    return str.substring(t, h);
+                }
+                if (result==null || tempLength <result.length()) {
+                    result = str.substring(t, h);
+                }
+                char tail = str.charAt(t);
+                if (countMap.containsKey(tail)) {
+                    int tailCount = countMap.get(tail) - 1;
+                    if (tailCount == 0) {
+                        uniqueCounter = uniqueCounter - 1;
+                    }
+                    countMap.put(tail, tailCount);
+                }
+                t = t + 1;
+            }
+        }
+        return result;
+    }
+
+    /**
+     *
+     * Think about Zuma Game. You have a row of balls on the table, colored red(R), yellow(Y), blue(B), green(G), and white(W). You also have several balls in your hand.
+
+     Each time, you may choose a ball in your hand, and insert it into the row (including the leftmost place and rightmost place). Then, if there is a group of 3 or more balls in the same color touching, remove these balls. Keep doing this until no more balls can be removed.
+
+     Find the minimal balls you have to insert to remove all the balls on the table. If you cannot remove all the balls, output -1.
+
+     Examples:
+
+     Input: "WRRBBW", "RB"
+     Output: -1
+     Explanation: WRRBBW -> WRR[R]BBW -> WBBW -> WBB[B]W -> WW
+
+     Input: "WWRRBBWW", "WRBRW"
+     Output: 2
+     Explanation: WWRRBBWW -> WWRR[R]BBWW -> WWBBWW -> WWBB[B]WW -> WWWW -> empty
+
+     Input:"G", "GGGGG"
+     Output: 2
+     Explanation: G -> G[G] -> GG[G] -> empty
+
+     Input: "RBYYBBRRB", "YRBGB"
+     Output: 3
+     Explanation: RBYYBBRRB -> RBYY[Y]BBRRB -> RBBBRRB -> RRRB -> B -> B[B] -> BB[B] -> empty
+
+     Note:
+     You may assume that the initial row of balls on the table won’t have any 3 or more consecutive balls with the same color.
+     The number of balls on the table won't exceed 20, and the string represents these balls is called "board" in the input.
+     The number of balls in your hand won't exceed 5, and the string represents these balls is called "hand" in the input.
+     Both input strings will be non-empty and only contain characters 'R','Y','B','G','W'.
+     *
+     * @param board
+     * @param hand
+     * @return
+     */
+    static int findMinStep(String board, String hand) {
+        List<Character> boardList = new ArrayList<Character>();
+        for (char c : board.toCharArray()) {
+            boardList.add(c);
+        }
+        Map<Character,Integer> handMap = new HashMap<>();
+        handMap.put('R',0);
+        handMap.put('Y',0);
+        handMap.put('B',0);
+        handMap.put('G',0);
+        handMap.put('W',0);
+        for (char h : hand.toCharArray()) {
+            handMap.put(h, handMap.get(h) + 1);
+        }
+        return find(boardList, handMap);
+    }
+
+    private static int find(List<Character> board, Map<Character, Integer> hand) {
+        cleanupBoard(board);
+        if (board.size() == 0) return 0;
+        if (empty(hand)) return -1;
+        int count = 0;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i<board.size(); i++) {
+            char c = board.get(i);
+            count++;
+            if (i == board.size() - 1 || board.get(i+1) != c) {
+                int missing = 3 - count;
+                if (hand.get(c) >= missing) {
+                    hand.put(c, hand.get(c) - missing);
+                    List<Character> smallerBoard = new ArrayList<>(board);
+                    for (int j = 0; j<count; j++) {
+                        smallerBoard.remove(i-j);
+                    }
+                    int smallerFind = find(smallerBoard, hand);
+                    if ( smallerFind != -1 ) {
+                        min = Math.min(smallerFind + missing, min);
+                    }
+                    hand.put(c, hand.get(c) + missing);
+                }
+                count = 0;
+            }
+        }
+        return (min == Integer.MAX_VALUE) ? -1 : min;
+    }
+
+    private static void cleanupBoard(List<Character> board) {
+        int count = 0;
+        boolean cleaned = false;
+        for (int i = 0; i<board.size(); i++) {
+            char c = board.get(i);
+            count++;
+            if (i == board.size() - 1 || board.get(i+1) != c) {
+                if (count >= 3) {
+                    for (int j = 0; j<count; j++) {
+                        board.remove(i-j);
+                    }
+                    cleaned = true;
+                    break;
+                }
+                count = 0;
+            }
+        }
+        if (cleaned) {
+            cleanupBoard(board);
+        }
+    }
+
+    private static boolean empty(Map<Character,Integer> hand) {
+        for (int val : hand.values()) {
+            if (val > 0) return false;
+        }
+        return true;
     }
 
     /**
