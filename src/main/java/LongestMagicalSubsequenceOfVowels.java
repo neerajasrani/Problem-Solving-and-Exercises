@@ -29,7 +29,7 @@ public class LongestMagicalSubsequenceOfVowels {
         // Stores a positions
         char [] c = s.toCharArray();
         List<Integer> aPositions = new ArrayList<Integer>();
-        int maxSubsequence = 0;
+        int maxSubsequenceLength = 0;
 
 
         // Fill aPositions list with indices having an "a"
@@ -43,90 +43,47 @@ public class LongestMagicalSubsequenceOfVowels {
         // Call findMaxSubsequence for all aPositions found in input String
         for (int i: aPositions) {
             subSequenceCount = findMaxSubsequence(c, i);
-            if (subSequenceCount > maxSubsequence) {
-                maxSubsequence = subSequenceCount;
+            if (subSequenceCount > maxSubsequenceLength) {
+                maxSubsequenceLength = subSequenceCount;
             }
         }
 
-        System.out.println(maxSubsequence);
+        System.out.println(maxSubsequenceLength);
     }
 
     private static int findMaxSubsequence(char[] c, int pos) {
-        char[] vowels = new char[] {'a','e','i','o','u'};
-        Result result = new Result();
+        int subSequenceCount = 0;
+        char[] vowels = new char[] {'a','e','i','o','u', '\0'};
+        boolean isNextVowelFound = true;
 
         for (int i = pos; i < c.length; i++) {
             for (int v = 0 ; v < vowels.length - 1; v++) {
-                if (!result.isVowelNotFound()) {
-                    countSubSequence(c, vowels[v], vowels[v + 1], i, result);
-                    i = result.getPos();
+                boolean nextVowelFound = false;
+                int j = 0;
+                for (j = i; j < c.length; j++) {
+                    if (isNextVowelFound) {
+                        if (vowels[v] != 'u') {
+                            if (c[j] == vowels[v]) {
+                                subSequenceCount++;
+                            }
+                            if (c[j] == vowels[v + 1]) {
+                                nextVowelFound = true;
+                                break;
+                            }
+                        } else {
+                            if (c[j] == 'u') {
+                                nextVowelFound = true;
+                                subSequenceCount++;
+                            }
+                        }
+                    } else {
+                        return 0;
+                    }
                 }
-                else {
-                    return 0;
-                }
+                i = j;
+                isNextVowelFound = nextVowelFound;
             }
         }
-        return result.isVowelNotFound() ?  0  : result.getSubSequenceCount();
-    }
-
-    private static void countSubSequence(char[] c, char vowel1, char vowel2, int pos, Result result) {
-        int subSequenceCount = 0;
-        boolean lastVowelFound = false;
-
-        while (pos < c.length && c[pos] != vowel2) {
-            if (c[pos] == vowel1) {
-                subSequenceCount++;
-            }
-            pos++;
-        }
-        if (pos >= c.length || c[pos] != vowel2){
-            result.setVowelNotFound(true);
-        }
-        if (vowel2 == 'u') {
-            while (pos < c.length) {
-                if (c[pos] == 'u') {
-                    subSequenceCount++;
-                    lastVowelFound = true;
-                }
-                pos++;
-            }
-            // The required vowel if not found , setVowelNotFound to true and return 0
-            if (!lastVowelFound) {
-                result.setVowelNotFound(true);
-            }
-        }
-
-        result.setPos(pos);
-        result.setSubSequenceCount(result.getSubSequenceCount() + subSequenceCount);
-    }
-
-    static class Result {
-        private int subSequenceCount;
-        private int pos;
-        private boolean vowelNotFound;
-
-        public boolean isVowelNotFound() {
-            return vowelNotFound;
-        }
-
-        public void setVowelNotFound(boolean vowelNotFound) {
-            this.vowelNotFound = vowelNotFound;
-        }
-
-        public int getSubSequenceCount() {
-            return subSequenceCount;
-        }
-
-        public void setSubSequenceCount(int subSequenceCount) {
-            this.subSequenceCount = subSequenceCount;
-        }
-
-        public int getPos() {
-            return pos;
-        }
-
-        public void setPos(int pos) {
-            this.pos = pos;
-        }
+        return subSequenceCount;
     }
 }
