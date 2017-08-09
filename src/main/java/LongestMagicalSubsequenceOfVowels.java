@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ import java.util.List;
  *
  * aeeioo
  * O/p - 0
- * Explanation - The String does not contain U
+ * Explanation - The String does not contain 'u'
  *
  */
 public class LongestMagicalSubsequenceOfVowels {
@@ -25,12 +23,10 @@ public class LongestMagicalSubsequenceOfVowels {
     public static void main(String[] args) {
 
         String s = args[0];
-
-        // Stores a positions
         char [] c = s.toCharArray();
-        List<Integer> aPositions = new ArrayList<Integer>();
+        List<Integer> aPositions = new ArrayList<>();
         int maxSubsequenceLength = 0;
-
+        int subSequenceCount;
 
         // Fill aPositions list with indices having an "a"
         for (int i = 0; i < s.length(); i++) {
@@ -38,16 +34,13 @@ public class LongestMagicalSubsequenceOfVowels {
                 aPositions.add(i);
             }
         }
-
-        int subSequenceCount = 0;
-        // Call findMaxSubsequence for all aPositions found in input String
         for (int i: aPositions) {
+            // Call findMaxSubsequence for all aPositions found in input String
             subSequenceCount = findMaxSubsequence(c, i);
             if (subSequenceCount > maxSubsequenceLength) {
                 maxSubsequenceLength = subSequenceCount;
             }
         }
-
         System.out.println(maxSubsequenceLength);
     }
 
@@ -59,21 +52,19 @@ public class LongestMagicalSubsequenceOfVowels {
         for (int i = pos; i < c.length; i++) {
             for (int v = 0 ; v < vowels.length - 1; v++) {
                 boolean nextVowelFound = false;
-                int j = 0;
+                int j;
                 for (j = i; j < c.length; j++) {
                     if (isNextVowelFound) {
-                        if (vowels[v] != 'u') {
-                            if (c[j] == vowels[v]) {
-                                subSequenceCount++;
-                            }
-                            if (c[j] == vowels[v + 1]) {
-                                nextVowelFound = true;
-                                break;
-                            }
-                        } else {
+                        if (vowels[v] == 'u') {
                             if (c[j] == 'u') {
                                 nextVowelFound = true;
                                 subSequenceCount++;
+                            }
+                        } else {
+                            if (c[j] == vowels[v]) subSequenceCount++;
+                            if (c[j] == vowels[v + 1]) {
+                                nextVowelFound = true;
+                                break;
                             }
                         }
                     } else {
