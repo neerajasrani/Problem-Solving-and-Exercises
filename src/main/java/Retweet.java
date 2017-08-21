@@ -38,7 +38,7 @@ public class Retweet {
     // Lowest in Top 10 Tweet ID
     private static Long MIN_ID = Long.MIN_VALUE;
 
-    // Lowest in Top 10 Tweet Count
+    // Lowest in Top 10 Tweet countTurns
     private static BigInteger MIN = BigInteger.valueOf(Integer.MAX_VALUE);
 
     // Number of minutes for the Sample stream to run.
@@ -186,7 +186,7 @@ public class Retweet {
                         RetweetData rd = e.getValue();
                         BigInteger count = rd.getCount();
                         String text = rd.getText();
-                        System.out.println("Text - " + text + "Count - " + count);
+                        System.out.println("Text - " + text + "countTurns - " + count);
                     }
 
                     System.out.print("\n ---- END OF PROGRAM ----");

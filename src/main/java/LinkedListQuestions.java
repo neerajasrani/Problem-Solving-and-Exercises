@@ -4,7 +4,7 @@
  * All problems are solved, Method names are self explanatory to the problems being solved.
  * In addition you will see java doc comments in the comments section
  */
-class LinkedList {
+class LinkedListCustom {
 
     /**
      * Head of Linked List
@@ -120,7 +120,7 @@ class LinkedList {
     /**
      * Method to delete node at a index position.
      * Add a method to delete first node in the linkedList
-     * Add a method to delete last node in the LinkedList
+     * Add a method to delete last node in the LinkedListCustom
      * Add a method to delete node at index
      * @param index
      */
@@ -260,39 +260,39 @@ class LinkedList {
 
 public class LinkedListQuestions {
     public static void main(String[] args) {
-        LinkedList linkedList = new LinkedList();
-        LinkedList linkedListWithCycle = new LinkedList();
+        LinkedListCustom linkedListCustom = new LinkedListCustom();
+        LinkedListCustom linkedListWithCycle = new LinkedListCustom();
 
         // Linked List With Cycle
         linkedListWithCycle.initializeLinkedListWithCycle();
         System.out.println("isCyclePresent = [" + linkedListWithCycle.isCyclePresent() + "]");
 
         // Linked List
-        linkedList.initializeLinkedList();
-        linkedList.insertBeforeHead("ba");
-        linkedList.insertBeforeHead("bba");
-        linkedList.insertAfterTail("ae");
-        linkedList.insertAfterTail("af");
-        System.out.println("isCyclePresent = [" + linkedList.isCyclePresent() + "]");
-        linkedList.print();
-        System.out.println("middle node with a even numbered LL size = [" + linkedList.findMiddleNode() + "]");
-        linkedList.insertAfterTail("aaf");
-        linkedList.insertAfterTail("aaaf");
-        linkedList.insertAfterTail("aaaaf");
-        linkedList.insertBeforeHead("bbbf");
-        linkedList.insertBeforeHead("cbbf");
-        linkedList.print();
-        System.out.println("middle node with a odd numbered LL size = [" + linkedList.findMiddleNode() + "]");
-        System.out.println("11th fron end of LL size = [" + linkedList.findNthNodeFromEnd(11) + "]");
+        linkedListCustom.initializeLinkedList();
+        linkedListCustom.insertBeforeHead("ba");
+        linkedListCustom.insertBeforeHead("bba");
+        linkedListCustom.insertAfterTail("ae");
+        linkedListCustom.insertAfterTail("af");
+        System.out.println("isCyclePresent = [" + linkedListCustom.isCyclePresent() + "]");
+        linkedListCustom.print();
+        System.out.println("middle node with a even numbered LL size = [" + linkedListCustom.findMiddleNode() + "]");
+        linkedListCustom.insertAfterTail("aaf");
+        linkedListCustom.insertAfterTail("aaaf");
+        linkedListCustom.insertAfterTail("aaaaf");
+        linkedListCustom.insertBeforeHead("bbbf");
+        linkedListCustom.insertBeforeHead("cbbf");
+        linkedListCustom.print();
+        System.out.println("middle node with a odd numbered LL size = [" + linkedListCustom.findMiddleNode() + "]");
+        System.out.println("11th fron end of LL size = [" + linkedListCustom.findNthNodeFromEnd(11) + "]");
         System.out.println("Deleting 5th node of LL, here it looks like after deletion");
-        linkedList.deleteNodeAt(5);
-        linkedList.print();
-        linkedList.initializeLinkedList();
-        linkedList.insertAfterTail("c");
-        linkedList.insertAfterTail("d");
-        linkedList.print();
-        System.out.println("middle node with a even numbered LL size = [" + linkedList.findMiddleNode() + "]");
-        System.out.println("4th fron end of LL size = [" + linkedList.findNthNodeFromEnd(4) + "]");
+        linkedListCustom.deleteNodeAt(5);
+        linkedListCustom.print();
+        linkedListCustom.initializeLinkedList();
+        linkedListCustom.insertAfterTail("c");
+        linkedListCustom.insertAfterTail("d");
+        linkedListCustom.print();
+        System.out.println("middle node with a even numbered LL size = [" + linkedListCustom.findMiddleNode() + "]");
+        System.out.println("4th fron end of LL size = [" + linkedListCustom.findNthNodeFromEnd(4) + "]");
     }
 }
 
