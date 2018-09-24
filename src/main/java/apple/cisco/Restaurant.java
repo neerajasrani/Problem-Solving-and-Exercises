@@ -10,6 +10,27 @@ import java.util.Properties;
 /**
  * 1. Sorted order of items
  * 2. Customer transaction API,
+ *
+ * Restaurant, breakfast, diner, lunch
+ South Indian - menu items… idli ..
+
+ Property file - menu items with price
+ Read property file, keep it in location .. Should remain in memory….
+
+ Plain core Java
+
+ Real time , one thread reading property…  —
+
+ Refresh this in memory 1 am.  —
+
+ Property 1 am —
+
+ Memory - menu items in sorted order.
+
+ I/p
+ 10  - customer
+ 7 - customer
+ *
  */
 
 public class Restaurant {

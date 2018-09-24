@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by neeraj on 4/23/15.
@@ -178,10 +175,10 @@ public class Facebook {
 
         int result = 0;
 
-            for (int j = 0; j <= dp.length - 1; j++) {
-                result += dp[j];
-                System.out.print(dp[j]);
-            }
+        for (int j = 0; j <= dp.length - 1; j++) {
+            result += dp[j];
+            System.out.print(dp[j]);
+        }
 
         return result;
     }

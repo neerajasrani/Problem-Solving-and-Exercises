@@ -25,7 +25,7 @@ public class MergeSort {
             doMergeSort(0, length - 1);
         }
 
-        private void doMergeSort(int lowerIndex, int higherIndex) {
+        private void doMergeSort(int lowerIndex, int higherIndex) { // 0, 10 ... 0,5 / 0,2 / 0,1 / 0,0,1
 
             if (lowerIndex < higherIndex) {
                 int middle = lowerIndex + (higherIndex - lowerIndex) / 2;

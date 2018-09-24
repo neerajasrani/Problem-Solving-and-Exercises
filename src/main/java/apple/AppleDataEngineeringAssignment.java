@@ -65,7 +65,6 @@ public class AppleDataEngineeringAssignment {
                 }
             }
         } finally {
-            li
             if (br != null) {
                 try {
                     br.close();
